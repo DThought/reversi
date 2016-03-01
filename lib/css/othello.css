@@ -1,4 +1,5 @@
 .hud {
+    clear: both;
     width: 24em;
     font-weight: bold;
 }

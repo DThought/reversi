@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Othello</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="lib/css/othello.css" />
+        <script type="text/javascript" src="lib/js/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/js/othello.js"></script>
+        <script type="text/javascript" src="lib/js/othellopresenter.js"></script>
+        <script type="text/javascript">// <![CDATA[
+            $(function() {
+				var presenter = new OthelloPresenter([
+					'webkit',
+					'o',
+					'ms',
+					'moz'
+				]);
+
+                var othello = new Othello(presenter, true);
+                var match = location.search.match(/[?&]log=([^&]+)/);
+                var moves = [];
+                var move = 0;
+                var to = 0;
+
+                var next = function() {
+                    $('#next').click();
+
+                    if (to) {
+                        to = setTimeout(next, 1000);
+                    }
+                }
+
+                if (match) {
+                    $.get(decodeURIComponent(match[1].replace(/\+/g, " ")),
+                            function(e) {
+                        var lines = e.split('\n');
+
+                        for (var i = 0; i < lines.length; i++) {
+                            match = lines[i].match(/(.+) vs\. (.*)/);
+
+                            if (match) {
+                                var divs = $('.wrapper > .hud > div');
+
+                                divs.eq(0).text(match[1]);
+                                divs.eq(1).text(match[2]);
+                            }
+
+                            match = lines[i].match(/\((\d),(\d)\)/);
+
+                            if (match) {
+                                moves.push({
+                                    x: parseInt(match[1]),
+                                    y: parseInt(match[2])
+                                });
+
+                                continue;
+                            }
+                        }
+
+                        move = 0;
+                        othello.reset();
+                    }, 'text');
+                }
+
+                $('#prev').click(function() {
+                    if (move) {
+                        if (othello.undo()) {
+                            move--;
+                        }
+                    }
+                });
+
+                $('#next').click(function() {
+                    if (move < moves.length) {
+                        if (othello.place(moves[move].x, moves[move].y)) {
+                            move++;
+                            return;
+                        }
+                    }
+
+                    to = 0;
+                });
+
+                $('#play').click(function() {
+                    if (!to) {
+                        to = 1;
+                        next();
+                    }
+                });
+
+                $('#stop').click(function() {
+                    clearTimeout(to);
+                });
+            });
+        // ]]></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="wrapper">
+                <div class="hud">
+                    <div></div>
+                    <div></div>
+                </div>
+                <div id="game"></div>
+                <div class="hud">
+                    <div>
+                        <button id="prev">Previous</button>
+                        <button id="next">Next</button>
+                    </div>
+                    <div>
+                        <button id="play">Play</button>
+                        <button id="stop">Stop</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
