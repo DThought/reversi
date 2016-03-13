@@ -41,7 +41,7 @@
                                 continue;
                             }
 
-                            match = lines[i].match(/(.+) vs\. (.*)/);
+                            match = lines[i].match(/^(.+) vs\. (.*)/);
 
                             if (match) {
                                 var divs = $('.wrapper > .hud > div');
@@ -51,7 +51,7 @@
                                 continue;
                             }
 
-                            match = lines[i].match(/\((\d),(\d)\)/);
+                            match = lines[i].match(/^\((\d),(\d)\)/);
 
                             if (match) {
                                 moves.push({
