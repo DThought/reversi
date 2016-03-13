@@ -26,7 +26,7 @@
                     $('#next').click();
 
                     if (to) {
-                        to = setTimeout(next, 1000);
+                        to = setTimeout(next, 100);
                     }
                 }
 
@@ -61,6 +61,12 @@
 
                                 continue;
                             }
+
+                            moves.push({
+                                error: lines.slice(i)
+                            });
+
+                            break;
                         }
 
                         move = 0;
@@ -70,6 +76,8 @@
 
                 $('#prev').click(function() {
                     if (move) {
+                        $('#error').empty();
+
                         if (othello.undo()) {
                             move--;
                         }
@@ -78,9 +86,23 @@
 
                 $('#next').click(function() {
                     if (move < moves.length) {
+                        $('#error').empty();
+
                         if (moves[move]) {
-                            if (othello.place(moves[move].x, moves[move].y)) {
+                            if (moves[move].error) {
+                                for (var i = 0; i < moves[move].error.length;
+                                        i++) {
+                                    $('#error').append($('<p />')
+                                               .text(moves[move].error[i]));
+                                }
+
+                                othello.pass();
                                 move++;
+                            } else {
+                                if (othello.place(moves[move].x,
+                                        moves[move].y)) {
+                                    move++;
+                                }
                             }
                         } else {
                             othello.pass();
@@ -100,6 +122,7 @@
 
                 $('#stop').click(function() {
                     clearTimeout(to);
+                    to = 0;
                 });
             });
         // ]]></script>
@@ -122,6 +145,7 @@
                         <button id="stop">Stop</button>
                     </div>
                 </div>
+                <div id="error" class="hud"></div>
             </div>
         </div>
     </body>
