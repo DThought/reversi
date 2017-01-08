@@ -1,33 +1,33 @@
-.hud {
+.othello .othello-hud {
     clear: both;
     width: 24em;
     font-weight: bold;
 }
-.hud > div {
+.othello .othello-hud > div {
     float: right;
     padding: 0.5em;
 }
-.hud > div:first-child {
+.othello .othello-hud > div:first-child {
     float: left;
 }
-.hud > div.active::before {
+.othello .othello-hud > div.active::before {
     content: '\25b6';
 }
-.hud > div:first-child.active::before {
+.othello .othello-hud > div:first-child.active::before {
     display: none;
 }
-.hud > div:first-child.active::after {
+.othello .othello-hud > div:first-child.active::after {
     content: '\25c0';
 }
-.score {
+.othello .othello-score {
     padding: 0 1em;
 }
-.row {
+.othello .othello-row {
     clear: both;
     font-size: 3em;
     white-space: nowrap;
 }
-.cell {
+.othello .othello-cell {
     position: relative;
     float: left;
     width: 1em;
@@ -36,7 +36,7 @@
     border: 1px solid #116611;
     background-color: #2d882d;
 }
-.cell::before {
+.othello .othello-cell::before {
     position: absolute;
     top: 10%;
     left: 10%;
@@ -46,11 +46,11 @@
     border-radius: 0.5em;
     content: '';
 }
-.cell.color1::before {
+.othello .othello-cell.othello-color1::before {
     border: 1px solid #116611;
     background-color: #061306;
 }
-.cell.color2::before {
+.othello .othello-cell.othello-color2::before {
     border: 1px solid #55aa55;
     background-color: #c6ecc6;
 }
