@@ -35,7 +35,7 @@ function OthelloPresenter(target) {
     grid += '<div class="othello-hud">'
         + '<div>Black <span class="othello-score" /></div>'
         + '<div><span class="othello-score" /> White</div></div></div>';
-    $grid = $(grid).appendTo($(target));
+    $grid = $(grid).appendTo(target);
 
     if (!readonly) {
       $grid.on('click', '.othello-cell', function() {
