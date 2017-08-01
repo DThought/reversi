@@ -20,22 +20,10 @@ function OthelloPresenter(target) {
   }
 
   this.createGrid = function(readonly) {
-    var grid = '<div class="othello">';
-
-    for (var y = 0; y < 8; y++) {
-      grid += '<div class="othello-row">';
-
-      for (var x = 0; x < 8; x++) {
-        grid += '<div class="othello-cell" />';
-      }
-
-      grid += '</div>';
-    }
-
-    grid += '<div class="othello-hud">'
-        + '<div>Black <span class="othello-score" /></div>'
-        + '<div><span class="othello-score" /> White</div></div></div>';
-    $grid = $(grid).appendTo(target);
+    $grid = $(target).addClass('othello').html(('<div class="othello-row">' +
+        '<div class="othello-cell" />'.repeat(8) + '</div>').repeat(8) +
+        '<div class="othello-hud"><div>Black <span class="othello-score" />\
+</div><div><span class="othello-score" /> White</div></div>');
 
     if (!readonly) {
       $grid.on('click', '.othello-cell', function() {
