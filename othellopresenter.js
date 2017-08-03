@@ -17,7 +17,7 @@ function OthelloPresenter(target) {
     }
 
     return count;
-  }
+  };
 
   this.createGrid = function(readonly) {
     $grid = $(target).addClass('othello').html(('<div class="othello-row">' +
@@ -30,7 +30,7 @@ function OthelloPresenter(target) {
         self.model.place($(this).index(), $(this).parent().index());
       });
     }
-  }
+  };
 
   this.getCell = function(x, y) {
     var cell = getCell(x, y);
@@ -44,7 +44,7 @@ function OthelloPresenter(target) {
     }
 
     return 0;
-  }
+  };
 
   this.setCell = function(x, y, color) {
     var cell = getCell(x, y).removeClass('othello-color1 othello-color2');
@@ -54,7 +54,7 @@ function OthelloPresenter(target) {
     if (color) {
       cell.addClass('othello-color' + color);
     }
-  }
+  };
 
   this.setGrid = function(colors) {
     var i = 0;
@@ -64,17 +64,17 @@ function OthelloPresenter(target) {
         self.setCell(x, y, colors[i++]);
       }
     }
-  }
+  };
 
   this.setPlayer = function(color) {
     $grid.find('.othello-hud > div').removeClass('active').eq(color - 1)
         .addClass('active');
-  }
+  };
 
   this.updateScores = function() {
     var scores = $grid.find('.othello-hud span');
 
     scores.eq(0).text(self.countCells(1));
     scores.eq(1).text(self.countCells(2));
-  }
+  };
 }

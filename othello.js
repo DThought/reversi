@@ -8,13 +8,13 @@ function Othello(presenter, readonly) {
     'green',
     'yellow',
     'red'
-  ]
+  ];
 
   this.pass = function() {
     states.push(states[states.length - 1]);
     player = 1 - player;
     presenter.setPlayer(player + 1);
-  }
+  };
 
   this.place = function(x, y) {
     var i = y * 10 + x;
@@ -92,5 +92,5 @@ function Othello(presenter, readonly) {
     presenter.updateScores();
     presenter.setPlayer(player + 1);
     return true;
-  }
+  };
 }
