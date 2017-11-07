@@ -1,10 +1,10 @@
 function Othello(presenter, readonly) {
-  const dirs = [-11, -10, -9, -1, 1, 9, 10, 11];
+  var dirs = [-11, -10, -9, -1, 1, 9, 10, 11];
   var player;
   var states = [];
   var self = this;
 
-  const cycles = [
+  var cycles = [
     'green',
     'yellow',
     'red'
